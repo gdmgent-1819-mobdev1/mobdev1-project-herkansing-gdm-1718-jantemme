@@ -41,6 +41,7 @@ export default () => {
     })
     .then(function(myJson) {
       coordinates = myJson.features[0].center;
+      drawMap(coordinates)
     });
     // Run the update helper to update the template
     update(compile(dormDetailTemplate)({ loading, dorm }));
@@ -64,26 +65,9 @@ export default () => {
     });
 
     checkIfFavorite(dorm)
-
     addGenerallisteners()
   });
 
-    setTimeout(() => {
-      if (config.mapBoxToken) {
-        mapboxgl.accessToken = config.mapBoxToken;
-        // eslint-disable-next-line no-unused-vars
-        const map = new mapboxgl.Map({
-          container: 'map',
-          center: [coordinates[0], coordinates[1]],
-          style: 'mapbox://styles/mapbox/streets-v9',
-          zoom: 14,
-        });
-        new mapboxgl.Marker()
-        .setLngLat(coordinates)
-        .addTo(map);
-      } else {
-        console.error('Mapbox will crash the page if no access token is given.');
-      }}, 1000);
 }
 
 const checkIfFavorite = (dorm) => {
@@ -110,5 +94,23 @@ const checkIfFavorite = (dorm) => {
     });
   } else {
     removeFromLikesButton.style.display = "none"
+  }
+}
+
+const drawMap = (coordinates) => {
+  if (config.mapBoxToken) {
+    mapboxgl.accessToken = config.mapBoxToken;
+    // eslint-disable-next-line no-unused-vars
+    const map = new mapboxgl.Map({
+      container: 'map',
+      center: [coordinates[0], coordinates[1]],
+      style: 'mapbox://styles/mapbox/streets-v9',
+      zoom: 14,
+    });
+    new mapboxgl.Marker()
+    .setLngLat(coordinates)
+    .addTo(map);
+  } else {
+    console.error('Mapbox will crash the page if no access token is given.');
   }
 }

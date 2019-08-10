@@ -5,12 +5,6 @@ import { compile } from 'handlebars';
 // Import the update helper
 import update from '../helpers/update';
 import {
-  logout,
-  sendEmailVerification,
-  sendNotification,
-  requestNotificationPermission,
-  toggleMobileMenu,
-  hideMobileMenu,
   addGenerallisteners
   } from '../helpers/globalListeners.js';
 
@@ -28,8 +22,10 @@ export default () => {
 
   let user = JSON.parse(localStorage.getItem('User'));
 
+
   // Return the compiled template to the router
   update(compile(dormsListTemplate)({ title, loading, posts }));
+  addGenerallisteners();
 
   const database = firebase.database().ref('/dorms');
   database.on('value', (snapshot) => {

@@ -25,7 +25,7 @@
     <div class="container">
       {{#each posts}}
         <div id="{{this.dorm_id}}" class="dorm">
-          <img src={{this.image}} alt="">
+          <img class="dorm_image" src={{this.image}} alt="">
           <h1>{{this.type}}</h1>
           <p class="dorm_adress">{{this.place}}, {{this.streetAndNumber}}</p>
           <p class="dorm_info"> Kitchen: &nbsp&nbsp{{this.kitchen_status}}</p>
