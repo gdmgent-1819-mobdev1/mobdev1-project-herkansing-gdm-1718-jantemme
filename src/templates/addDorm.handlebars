@@ -1,0 +1,100 @@
+{{> header }}
+<div class="body" >
+    <div class="page">
+        <div action="" class="sign">
+            <h1>Add your dorm</h1>
+            <label for="dorm_price">Price per month</label>
+            <input id="dorm_price" type="price" name="dorm_price"> 
+
+            <label for="dorm_pledge">Pledge</label>
+            <input id="dorm_pledge" type="price" name="dorm_pledge"> 
+
+            <label for="dorm_type">Type</label>
+
+            <div class="sub-form">
+                <label for="dorm_type">Room</label>
+                <input id="dorm_type_room" type="radio" name="dorm_type" value="room">
+                <label for="dorm_type">Studio</label>
+                <input id="dorm_type_studio" type="radio" name="dorm_type" value="studio">
+            </div>
+
+            <label for="dorm_surface">Surface (square meters)</label>
+            <input id="dorm_surface" type="number" name="dorm_surface">
+
+            <label for="dorm_floor">Floor</label>
+            <input id="dorm_floor" type="number" name="dorm_floor">
+
+            <label for="dorm_people">Amount of people</label>
+            <input id="dorm_people" type="number" name="dorm_people"> 
+
+            <label for="dorm_toilet">Toilet</label>
+            <div class="sub-form">
+                <label for="dorm_toilet">Private</label>
+                <input id="dorm_toilet_private" type="radio" name="dorm_toilet" value="private"> 
+                <label for="dorm_toilet">Shared</label>
+                <input id="dorm_toilet_shared" type="radio" name="dorm_toilet" value="shared"> 
+                <label for="dorm_toilet">Non existent</label>
+                <input id="dorm_toilet_none" type="radio" name="dorm_toilet" value="none"> 
+            </div>
+
+            <label for="dorm_shower">Shower</label>
+            <div class="sub-form">
+                <label for="dorm_shower">Private</label>
+                <input id="dorm_shower_private" type="radio" name="dorm_shower" value="private"> 
+                <label for="dorm_shower">Shared</label>
+                <input id="dorm_shower_shared" type="radio" name="dorm_shower" value="shared"> 
+                <label for="dorm_shower">Non existent</label>
+                <input id="dorm_shower_none" type="radio" name="dorm_shower" value="none"> 
+            </div>
+
+            <label for="dorm_bath">Bath</label>
+            <div class="sub-form">
+                <label for="dorm_bath">Private</label>
+                <input id="dorm_bath_private" type="radio" name="dorm_bath" value="private"> 
+                <label for="dorm_bath">Shared</label>
+                <input id="dorm_bath_shared" type="radio" name="dorm_bath" value="shared"> 
+                <label for="dorm_bath">Non existent</label>
+                <input id="dorm_bath_none" type="radio" name="dorm_bath" value="none"> 
+            </div>
+
+            <label for="dorm_kitchen">Kitchen</label>
+            <div class="sub-form">
+                <label for="dorm_kitchen">Private</label>
+                <input id="dorm_kitchen_private" type="radio" name="dorm_kitchen" value="private"> 
+                <label for="dorm_kitchen">Shared</label>
+                <input id="dorm_kitchen_shared" type="radio" name="dorm_kitchen" value="shared"> 
+                <label for="dorm_kitchen">Non existent</label>
+                <input id="dorm_kitchen_none"type="radio" name="dorm_kitchen" value="none"> 
+            </div>
+
+            <label for="dorm_furniture">Furniture</label>
+            <div class="sub-form">
+                <label for="dorm_furniture">Yes</label>
+                <input id="dorm_furniture_yes" type="radio" name="dorm_furniture" value="yes"> 
+                <label id="dorm_furniture_discription_label" for="dorm_furniture_discription">Discription</label>
+                <input id="dorm_furniture_discription" type="text" name="dorm_furniture_discription" class="textbox"> 
+                <label for="dorm_furniture">No</label>
+                <input id="dorm_furniture_no" type="radio" name="dorm_furniture" value="no"> 
+            </div>
+
+            <label for="dorm_image">Pictures</label>
+            <input id="dorm_image" type="file" name="dorm_image">
+
+             <label for="dorm_adress">Adress</label>
+            <div class="sub-form">
+                <label for="dorm_adress">Street and housenumber</label>
+                <input id="dorm_streetAndNumber"  type="text" name="dorm_adress"> 
+                <label for="dorm_place">Place</label>
+                <input id="dorm_place" type="text" name="dorm_place"> 
+                <label for="dorm_postal">Postal code</label>
+                <input id="dorm_postal" type="text" pattern="[0-9]{4}" name="dorm_postal"> 
+            </div>
+
+            <label for="dorm_dormAmount">Amount of dorms in the building</label>
+            <input id="dorm_dormAmount" type="number" name="dorm_dormAmount"> 
+
+            <button id="button_add_dorm">Add dorm</button>
+        </form>
+    </div>
+</div>
+{{> footer }}

@@ -1,3 +1,37 @@
 <section class="header">
-    <h2>{{title}}</h2>
+    <div class="header-container">
+        <div class="navbar">
+            <nav>
+                <a id="btn-home" href="/" data-navigo>Home</a>
+                <a href="#/about" data-navigo>About</a>
+                <a href="#/dormsList" data-navigo>Dorms</a>
+                <a href="#/mapbox" data-navigo>Map</a>
+            </nav>
+        </div>
+
+        <a href="/" data-navigo id="logo-home"> <h2>{{title}}</h2> </a>
+
+        <div id="menu-icon" class="menu-icon">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <div class="sign-container">
+            <a id="btn-login" href="#/login" data-navigo>Login</a>
+            <a id="btn-signup" href="#/signUp">Sign Up</a>
+            <a id="btn-logout" class="logout">Log out</a>
+        </div>
+    </div>
+        <div id="navbar-mobile" class="navbar-mobile">
+            <nav>
+                <a id="btn-home-2" href="/" data-navigo>Home</a><br>
+                <a href="#/about" data-navigo>About</a><br>
+                <a href="#/dormsList" data-navigo>Dorms</a><br>
+                <a href="#/mapbox" data-navigo>Map</a><br>
+                <a id="btn-login-2" href="#/login">Login</a><br>
+                <a id="btn-signup-2" href="#/signUp">Sign Up</a><br>
+                <a id="btn-logout-2" class="logout">Log out</a><br>
+            </nav>
+        </div>
 </section>

@@ -9,7 +9,7 @@ const header = require('./partials/header.handlebars');
 const footer = require('./partials/footer.handlebars');
 
 // Register the partial components
-handlebars.registerPartial('header', compile(header)({ title: 'Just another web app' }));
+handlebars.registerPartial('header', compile(header)({ title: 'Dormy' }));
 handlebars.registerPartial('footer', compile(footer)({ text: 'Template made with love by GDM Ghent' }));
 
 // Router logic to load the correct template when needed
@@ -28,5 +28,5 @@ router.notFound(() => {
 });
 router.resolve();
 window.onload = () => {
-  router.navigate(window.location.hash.split('/')[1]);
+  //router.navigate(window.location.hash.split('/')[1]);
 };

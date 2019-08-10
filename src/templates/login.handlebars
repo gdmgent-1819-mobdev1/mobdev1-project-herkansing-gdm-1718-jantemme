@@ -1,0 +1,26 @@
+{{> header }}
+<div class="page home">
+  <div class="body">
+
+    <div id="form_sign" class="sign" >
+      <div id="login">
+        <h1>Login</h1>
+        <form id="form_login" class="login" action="" autocomplete="on">
+          <label for="login_email">Email</label>
+          <input type="email" name="login_email" id="login_email" autocomplete="email">
+
+          <label for="login_password">Password</label>
+          <input type="password" name="login_password" id="login_password" autocomplete="current-password">
+
+          <button type="submit" id="btn_login">Login</button>
+        </form>
+        <br>
+        <p class="error" id="login_error"></p>
+      </div>
+      <!--<div id="user_info"></div>-->
+    </div>
+
+  </div>
+</div>
+
+{{> footer }}

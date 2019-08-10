@@ -1,0 +1,40 @@
+{{> header }}
+<div class="page dorms">
+  <div>
+    <div id="modal_filter" class="modal">
+
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Some text in the Modal..</p>
+      </div>
+
+    </div>
+    <div>
+      <div class="dorms_header">
+        <h1>{{title}}</h1>
+        <a href="#/addDorm" id="button-AddDorm"><button>Add your dorm</button></a>
+      </div>
+      <div class="dorms_header">
+        <div class="view"><a href="#/dormsList">List</a> | <a href="#/dormsTinder">Tinder</a></div>
+        <p id="button_filter">Filter</p>
+      </div>
+    </div>
+    {{#if loading}}
+      Loading data, please wait...
+    {{else}}
+    <div class="container">
+      {{#each posts}}
+        <div id="{{this.dorm_id}}" class="dorm">
+          <img src={{this.image}} alt="">
+          <h1>{{this.type}}</h1>
+          <p class="dorm_adress">{{this.place}}, {{this.streetAndNumber}}</p>
+          <p class="dorm_info"> Kitchen: &nbsp&nbsp{{this.kitchen_status}}</p>
+          <p class="dorm_info"> Shower: &nbsp&nbsp{{this.shower_status}}</p>
+          <p class="dorm_info"> Toilet: &nbsp&nbsp&nbsp&nbsp&nbsp {{this.toilet_status}}</p>
+          <h1 class="dorm_price">€{{this.price}}/month</h1>
+        </div>
+      {{/each}}
+    </div>
+    {{/if}}
+</div>
+{{> footer }}

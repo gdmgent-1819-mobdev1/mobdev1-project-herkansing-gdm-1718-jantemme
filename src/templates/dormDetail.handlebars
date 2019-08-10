@@ -1,0 +1,43 @@
+{{> header }}
+<div class="page dorms">
+  <div class="body">
+    {{#if loading}}
+      Loading data, please wait...
+    {{else}}
+    <div class="container">
+      <div id="{{dorm.dorm_id}}" class="detail_dorm">
+        <div class="mapAndImg">
+          <img src={{dorm.image}} alt="">
+          <div id="map"></div>
+        </div>
+        <h1>{{dorm.type}}</h1>
+        <p class="dorm_adress">{{dorm.place}}, {{dorm.streetAndNumber}}</p>
+        <p class="dorm_info"> Price: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp€{{dorm.price}} per month</p>
+        <p class="dorm_info"> Pledge: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp€{{dorm.pledge}}</p>
+        <p class="dorm_info"> Surface: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{dorm.surface}} m<sup>2</sup></p>
+        <p class="dorm_info"> Floor: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThis dorm is on floor {{dorm.floor}}</p>
+        <p class="dorm_info"> Space: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspPlace for {{dorm.peoplePerDorm}}</p>
+        <p class="dorm_info"> Building: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThere are {{dorm.dormAmount}} dorms in this building.</p>
+        <p class="dorm_info"> Kitchen: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{dorm.kitchen_status}}</p>
+        <p class="dorm_info"> Shower: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{dorm.shower_status}}</p>
+        <p class="dorm_info"> Bath: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{dorm.bath_status}}</p>
+        <p class="dorm_info"> Toilet: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{dorm.toilet_status}}</p>
+        <p class="dorm_info"> Furniture: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{dorm.furniture}}</p>
+        <p class="dorm_info"> Discription: </p>
+        <div class="discription"><em>{{dorm.furniture_discription}}</em></div>
+        <div class="dorm_footer">
+          <button id="button_message">Message loaner</button>
+          <button id="button_remove_like">Remove form likes</button>
+          <div id="fb-share-button">
+            <svg viewBox="0 0 12 12" preserveAspectRatio="xMidYMid meet">
+                <path class="svg-icon-path" d="M9.1,0.1V2H8C7.6,2,7.3,2.1,7.1,2.3C7,2.4,6.9,2.7,6.9,3v1.4H9L8.8,6.5H6.9V12H4.7V6.5H2.9V4.4h1.8V2.8 c0-0.9,0.3-1.6,0.7-2.1C6,0.2,6.6,0,7.5,0C8.2,0,8.7,0,9.1,0.1z"></path>
+            </svg>
+            <span>Share</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+</div>
+{{> footer }}

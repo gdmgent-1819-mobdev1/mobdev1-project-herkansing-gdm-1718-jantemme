@@ -3,11 +3,11 @@ const firebaseInstance = require('firebase');
 // Initialize Firebase
 // TODO: Replace with your project's config
 const config = {
-  apiKey: '<key>',
-  authDomain: '<projectId>.firebaseapp.com',
-  databaseURL: 'https://<projectId>.firebaseio.com',
-  projectId: '<projectId>',
-  storageBucket: '<projectId>.appspot.com',
+  apiKey: 'AIzaSyC_8xiCMXyIpYKyHJYHF6FMmfNewq8H8WM',
+  authDomain: 'kot-app-db4cf.firebaseapp.com',
+  databaseURL: 'https://kot-app-db4cf.firebaseio.com/',
+  projectId: 'kot-app-db4cf',
+  storageBucket: 'kot-app-db4cf.appspot.com',
   messagingSenderId: '52666332181',
 };
 

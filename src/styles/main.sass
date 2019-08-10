@@ -1,13 +1,16 @@
 @import "../../node_modules/mapbox-gl/dist/mapbox-gl.css"
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,500,900)
 // Generic styling
 body
     font-size: 12px
     margin: 0 auto
-    background: #fefefe
     height: 100vh
+    font-family: 'Roboto', sans-serif
+
     #app
         height: 100%
         position: relative
+        overflow: scroll
     #map
         top: 0
         bottom: 0
@@ -16,12 +19,22 @@ body
         text-align: initial
         margin: 0 auto
 
+    .hidden
+        display: none
+
+// variables
+@import "./colors"
+@import "./breaks"
 
 // general
-@import "./colors"
 @import "./page"
 @import "./header"
 @import "./footer"
+@import "./home"
+@import "./dorms"
 
 // pages
 @import "./about"
+
+// forms
+@import "./form"

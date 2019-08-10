@@ -1,0 +1,35 @@
+{{> header }}
+<div class="page dorms">
+  <div>
+    <div>
+      <div class="dorms_header">
+        <h1>{{title}}</h1>
+        <a href="#/addDorm" id="button-AddDorm"><button>Add your dorm</button></a>
+      </div>
+      <div class="dorms_header" style="height: 20px;">
+        <div class="view"><a href="#/dormsList">List</a> | <a href="#/dormsTinder">Tinder</a></div>
+        <p style="margin: auto 0;">Filter</p>
+      </div>
+    </div>
+    {{#if loading}}
+      Loading data, please wait...
+    {{else}}
+    <div class="container" style="padding-bottom: 0px;">
+        <div id="card-dorm" class="dorm">
+          <img src={{dorm.image}} alt="">
+          <h1>{{dorm.type}}</h1>
+          <p class="dorm_adress">{{dorm.place}}, {{dorm.streetAndNumber}}</p>
+          <p class="dorm_info"> Kitchen: &nbsp&nbsp{{dorm.kitchen_status}}</p>
+          <p class="dorm_info"> Shower: &nbsp&nbsp{{dorm.shower_status}}</p>
+          <p class="dorm_info"> Toilet: &nbsp&nbsp&nbsp&nbsp&nbsp {{dorm.toilet_status}}</p>
+          <h1 class="dorm_price">€{{dorm.price}}/month</h1>
+        </div>
+    </div>
+    <div class="buttons-tinder">
+      <button id="button-like">Like</button>
+      <button id="button-skip">Skip</button>
+    </div>
+    <a href="#/likes" style="margin: 0 auto;"><button>Likes</button></a>
+    {{/if}}
+</div>
+{{> footer }}

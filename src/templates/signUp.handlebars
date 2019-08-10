@@ -1,0 +1,51 @@
+{{> header }}
+<div class="page home">
+  <div class="body">
+
+    <div id="form_sign" class="sign" >
+      <div id="signUp">
+        <h1>Sign up</h1>
+          <form id="form_signup" class="signup" action="" autocomplete="on">
+            <label for="signup_name">Name</label>
+            <input type="text" name="signup_name" id="signup_name"><br>
+
+            <label for="signup_surname">Surname</label>
+            <input type="text" name="signup_surname" id="signup_surname"><br>
+
+            <label for="signup_adress">Adress</label>
+            <input type="text" name="signup_adress" id="signup_adress"><br>
+
+            <label for="signup_place">Place</label>
+            <input type="text" name="signup_place" id="signup_place"><br>
+
+            <label for="signup_school" id="signup_school_label">School</label>
+            <input type="text" name="signup_school" id="signup_school"><br>
+
+            <!--<label for="signup_bday">Date of birth</label>
+            <input type="date" name="signup_bday" id="signup_bday"><br>-->
+
+            <label for="signup_email">Email</label>
+            <input type="email" name="signup_email" id="signup_email" autocomplete="email"><br>
+
+            <label for="signup_tel">Telephone</label>
+            <input type="tel" name="signup_tel" id="signup_tel"><br>
+
+            <label for="signup_password">Password</label>
+            <input type="password" name="signup_password" id="signup_password" autocomplete="current-password"><br>
+
+            <label for="type">Student</label>
+            <input type="radio" name="status" value="student" id="signup_radio_student"><br>
+
+            <label for="type">Loaner</label>
+            <input type="radio" name="status" value="loaner" id="signup_radio_loaner">
+
+            <button type="submit" id="btn_signup">Sign Up</button>
+          </form>
+          <p class="error" id="signup_error"></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{> footer }}
