@@ -34,9 +34,9 @@ export default () => {
   const title = 'Map';
   update(compile(mapTemplate)({
     title
-  }));
+  }))
 
-  addGenerallisteners();
+  addGenerallisteners()
 
   let coordinates;
 
@@ -46,7 +46,10 @@ export default () => {
     // eslint-disable-next-line no-unused-vars
     const map = new mapboxgl.Map({
       container: 'map',
-      center: [3.72667, 51.05],
+      center: {
+        "lng": 3.72667, 
+        "lat": 51.05
+      },
       style: 'mapbox://styles/mapbox/streets-v9',
       zoom: 12,
     });
@@ -54,23 +57,24 @@ export default () => {
     const database = firebase.database().ref('/dorms');
     database.on('value', (snapshot) => {
       snapshot.forEach(function (data) {
-        let dorm = data.val();
+        let dorm = data.val()
         fetch(`http://api.mapbox.com/geocoding/v5/mapbox.places/${dorm.streetAndNumber} ${dorm.place}.json?access_token=${config.mapBoxToken}.json`)
         .then(function(response) {
-          return response.json();
+          return response.json()
         })
         .then(function(myJson) {
-          coordinates = myJson.features[0].center;
-        });
-
-        console.log(coordinates);
-        new mapboxgl.Marker()
-        .setLngLat(coordinates)
-        .addTo(map);
-      });
-    });
+          coordinates = {
+            "lng": myJson.features[0].center[0],
+            "lat": myJson.features[0].center[1]
+          }
+          new mapboxgl.Marker()
+          .setLngLat(coordinates)
+          .addTo(map);
+        })
+      })
+    })
 
   } else {
-    console.error('Mapbox will crash the page if no access token is given.');
+    console.error('Mapbox will crash the page if no access token is given.')
   }
 };
