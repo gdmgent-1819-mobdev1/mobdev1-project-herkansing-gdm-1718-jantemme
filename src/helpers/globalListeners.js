@@ -53,7 +53,8 @@ const signup = (e) => {
 
         writeUserData(email, name, surname, tel, adress, place, school, status);
 
-        sendNotification('Thanks for signing up to Dormy! Check your e-mail for account verification!');
+        const notification = "Thanks for signing up to Dormy! Check your e-mail for account verification!";
+        loginHandler(email, password, notification);
         sendVerificationEmail(response.user);
       })
       .catch(function (error) {
@@ -104,10 +105,15 @@ const login = (e) => {
 
   const email = document.getElementById('login_email').value;
   const password = document.getElementById('login_password').value;
+  const notification = "You are now logged in!";
 
+  loginHandler(email, password, notification);
+}
+
+const loginHandler = (email, password, notification) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function (response) {
-      sendNotification('You are now logged in successfully!');
+      sendNotification(notification);
       storeUser(response.user);
       setTimeout(function () {
         //showUserInfo(userObject);
@@ -115,7 +121,7 @@ const login = (e) => {
       }, 500);
       setTimeout(function () {
         window.location.assign("/");
-      }, 2000);
+      }, 1000);
     })
     .catch(function (error) {
       // Handle Errors here.
