@@ -365,11 +365,22 @@ const toggleFurnitureDiscription = () => {
   }
 }
 
+const removeSearchQuery = () => {
+  localStorage.removeItem("search_query")
+
+  // refresh page to show all dorms
+  if(window.location.href == "http://localhost:8080/#/dormsList") {
+    window.location.reload() 
+  }
+}
+
 
 // Eventlisteners
 const addGenerallisteners = () => {
   document.getElementById('menu-icon').addEventListener('click', toggleMobileMenu);
   document.getElementById('btn-home-2').addEventListener('click', hideMobileMenu);
+  document.getElementsByClassName('btn-dorms')[0].addEventListener('click', removeSearchQuery);
+  document.getElementsByClassName('btn-dorms')[1].addEventListener('click', removeSearchQuery);
 
   checkForUser();
 

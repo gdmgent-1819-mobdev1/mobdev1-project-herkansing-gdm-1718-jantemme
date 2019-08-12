@@ -1,12 +1,15 @@
 .sign
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    align-items: left
     margin: 10px auto
     background-color: white
-    width: 50%
+    width: 30%
     height: 100%
-    padding: 20px 20px 0px 20px
+    padding: 20px
     color: $color-purple-dark
     text-align: left
-    display: inline-block
     --webkit-box-shadow: 10px 18px 43px -1px rgba(0,0,0,0.14)
     -moz-box-shadow: 10px 18px 43px -1px rgba(0,0,0,0.14)
     box-shadow: 10px 18px 43px -1px rgba(0,0,0,0.14)
@@ -14,8 +17,19 @@
     @media screen and (max-width: $break-large)
             width: 80%
 
+    #button_add_dorm
+        width: 120px
+        height: 30px
+        font-size: 12px
+        border-radius: 15px
+        text-align: center
+        margin-top: 15px
+        border: none
+        background-color: $color-mint
+        cursor: pointer
+
     .sub-form
-        width: 100%
+        width: 180px
         margin-left: 5%
         border-left: 0.5px solid $color-purple-dark
         display: inline-block
@@ -51,61 +65,70 @@
         margin: 0 0 6px 0
         text-align: left
         font-weight: 300
-    
-    input
-        margin-right: 80px
-        margin-bottom: 12px
-        border: 0.1px solid $color-purple-dark
 
-    label
-        margin-right: 6px
-        margin-bottom: 4px
-        width: 180px
-        clear: left
-        text-align: right
-        padding-right: 10px
-        @media screen and (max-width: $break-large)
-            width: 100%
-            clear: none
-            text-align: left
-    
-    button 
-        width: 80px
-        height: 30px
-        font-size: 12px
-        border-radius: 15px
-        clear: left
-        text-align: center
-        margin: 10px
-        border: none
-        background-color: $color-mint
-        cursor: pointer
-    
-    input, label, button
-        float: left
+    .form_container
+        display: flex
+        flex-direction: column
+        justify-content: space-around
+        align-self: center
+        align-items: center
+        text-align: left
+        margin: 0
 
-    .signUp
-        width: 400px
-        height: 300px
-        @media screen and (max-width: $break-large)
+        .field_container
             display: flex
             flex-direction: column
-            height: 100%
-            width: 140%
-
-    .error
-        width: 100%
-        text-align: center
-        margin-top: 60px
-
-    .radio
-        display: inline-block
-        width: 200px
-        height: 100px
-
+    
         input
-            margin: 10px
+            margin-bottom: 12px
+            border: 0.1px solid $color-purple-dark
 
-    .textbox
-        margin-right: 0px
+        label
+            margin-bottom: 4px
+            width: 180px
+            text-align: left
+            @media screen and (max-width: $break-large)
+                width: 100%
+                clear: none
+                text-align: left
+        
+        button 
+            width: 80px
+            height: 30px
+            font-size: 12px
+            border-radius: 15px
+            clear: left
+            text-align: center
+            margin: 10px
+            border: none
+            background-color: $color-mint
+            cursor: pointer
+        
+        input, label, button
+            float: left
+
+        .signUp
+            width: 400px
+            height: 300px
+            @media screen and (max-width: $break-large)
+                display: flex
+                flex-direction: column
+                height: 100%
+                width: 140%
+
+        .error
+            width: 100%
+            text-align: center
+            margin-top: 60px
+
+        .radio
+            display: inline-block
+            width: 200px
+            height: 100px
+
+            input
+                margin: 10px
+
+        .textbox
+            margin-right: 0px
 

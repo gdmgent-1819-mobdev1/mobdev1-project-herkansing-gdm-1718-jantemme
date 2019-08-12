@@ -5,12 +5,17 @@
     <div id="form_sign" class="sign" >
       <div id="login">
         <h1>Login</h1>
-        <form id="form_login" class="login" action="" autocomplete="on">
-          <label for="login_email">Email</label>
-          <input type="email" name="login_email" id="login_email" autocomplete="email">
+        <form id="form_login" class="form_container" action="" autocomplete="on">
 
-          <label for="login_password">Password</label>
-          <input type="password" name="login_password" id="login_password" autocomplete="current-password">
+          <div class="field_container">
+            <label for="login_email">Email</label>
+            <input type="email" name="login_email" id="login_email" autocomplete="email">
+          </div>
+
+          <div class="field_container">
+            <label for="login_password">Password</label>
+            <input type="password" name="login_password" id="login_password" autocomplete="current-password">
+          </div>
 
           <button type="submit" id="btn_login">Login</button>
         </form>

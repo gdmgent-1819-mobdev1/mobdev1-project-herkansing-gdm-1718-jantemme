@@ -17,7 +17,7 @@ const dormsListTemplate = require('../templates/dormsList.handlebars');
 export default () => {
   // Data to be passed to the template
   let loading = true;
-  let posts = {};
+  let posts = [];
   const title = 'Dorms';
 
   let user = JSON.parse(localStorage.getItem('User'));
@@ -29,8 +29,25 @@ export default () => {
 
   const database = firebase.database().ref('/dorms');
   database.on('value', (snapshot) => {
-    posts = snapshot.val();
     loading = false;
+
+    // Convert snapshot to array
+    let returnArr = []
+    snapshot.forEach(function(childSnapshot) {
+      var item = childSnapshot.val();
+      item.key = childSnapshot.key;
+
+      if(localStorage.getItem("search_query")) {
+        const query = localStorage.getItem("search_query")
+        if(item.type == query || item.place == query || item.postal == query || item.streetAndNumber.split(/([ ]*[0-9])/)[0] == query) {
+          returnArr.push(item)
+        }
+      } else {
+        returnArr.push(item)
+      }
+    })
+
+    posts = returnArr
     // Run the update helper to update the template
     update(compile(dormsListTemplate)({ title, loading, posts }));
 
@@ -42,7 +59,7 @@ export default () => {
     }
     
     window.onclick = function(event) {
-      if (event.target == modal) {
+      if (event.target != modal) {
         modal.style.display = "none";
       }
     }
