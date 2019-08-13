@@ -18,6 +18,7 @@ import {
 const dormDetailTemplate = require('../templates/dormDetail.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   let loading = true;
   let dorm = {};
@@ -37,10 +38,12 @@ export default () => {
       if (dorm_id == data.val().dorm_id) {
         dorm = data.val();
         loading = false;
-        if(user.userId == dorm.user) {
-          owner = true
-        } else if(user.status == "Student") {
-          student = true
+        if(user) {
+          if(user.userId == dorm.user) {
+            owner = true
+          } else if(user.status == "Student") {
+            student = true
+          }
         }
       }
     });
@@ -74,6 +77,13 @@ export default () => {
       })
     }
 
+    if(document.getElementById("button_edit_dorm")) {
+      document.getElementById("button_edit_dorm").addEventListener("click", function() {
+        localStorage.setItem("dorm", JSON.stringify(dorm))
+        window.location.assign("/#/addDorm")
+      })
+    }
+
     var fbButton = document.getElementById('fb-share-button');
     var url = "google.com";
     
@@ -96,42 +106,47 @@ const checkIfFavorite = (dorm) => {
   let removeFromLikesButton = document.getElementById("button_remove_like")
   let isFavorite = false
   let favoriteIndex 
-
-  favorites.forEach(function (favorite, index) {
-    if(favorite.dorm_id == dorm.dorm_id) {
-      isFavorite = true
-      favoriteIndex = index
-    }
-  });
-
-  if(isFavorite) {
-    removeFromLikesButton.style.display = "inline_block"
-
-    removeFromLikesButton.addEventListener("click", function(e) {
-      favorites.splice(favoriteIndex, 1)
-      localStorage.setItem("likes", JSON.stringify(favorites))
-      removeFromLikesButton.style.display = "none"
-      sendNotification("Deleted from favorites.")
+  if(favorites) {
+    favorites.forEach(function (favorite, index) {
+      if(favorite.dorm_id == dorm.dorm_id) {
+        isFavorite = true
+        favoriteIndex = index
+      }
     });
+
+    if(isFavorite) {
+      removeFromLikesButton.style.display = "inline_block"
+
+      removeFromLikesButton.addEventListener("click", function(e) {
+        favorites.splice(favoriteIndex, 1)
+        localStorage.setItem("likes", JSON.stringify(favorites))
+        removeFromLikesButton.style.display = "none"
+        sendNotification("Deleted from favorites.")
+      });
+    } else {
+      removeFromLikesButton.style.display = "none"
+    }
   } else {
     removeFromLikesButton.style.display = "none"
   }
 }
 
 const drawMap = (coordinates) => {
-  if (config.mapBoxToken) {
-    mapboxgl.accessToken = config.mapBoxToken;
-    // eslint-disable-next-line no-unused-vars
-    const map = new mapboxgl.Map({
-      container: 'map',
-      center: [coordinates[0], coordinates[1]],
-      style: 'mapbox://styles/mapbox/streets-v9',
-      zoom: 14,
-    });
-    new mapboxgl.Marker()
-    .setLngLat(coordinates)
-    .addTo(map);
-  } else {
-    console.error('Mapbox will crash the page if no access token is given.');
+  if(document.getElementById("map")) {
+    if (config.mapBoxToken) {
+      mapboxgl.accessToken = config.mapBoxToken;
+      // eslint-disable-next-line no-unused-vars
+      const map = new mapboxgl.Map({
+        container: 'map',
+        center: [coordinates[0], coordinates[1]],
+        style: 'mapbox://styles/mapbox/streets-v9',
+        zoom: 14,
+      });
+      new mapboxgl.Marker()
+      .setLngLat(coordinates)
+      .addTo(map);
+    } else {
+      console.error('Mapbox will crash the page if no access token is given.');
+    }
   }
 }

@@ -5,17 +5,6 @@ import { compile } from 'handlebars';
 import update from '../helpers/update';
 import { userInfo } from 'os';
 import { 
-  signup,
-  logout,
-  sendEmailVerification,
-  sendNotification,
-  requestNotificationPermission,
-  toggleMobileMenu,
-  hideMobileMenu,
-  hideSchoolField,
-  showSchoolField,
-  showLogout,
-  hideLogout,
   addGenerallisteners,
   addSignUpListeners
   } from '../helpers/globalListeners.js';
@@ -24,6 +13,7 @@ import {
 const signUpTemplate = require('../templates/signUp.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   // Return the compiled template to the router
   update(compile(signUpTemplate)());

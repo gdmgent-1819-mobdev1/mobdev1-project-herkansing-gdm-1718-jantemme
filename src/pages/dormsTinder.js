@@ -16,6 +16,7 @@ const firebase = getInstance();
 const dormsTinderTemplate = require('../templates/dormsTinder.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   let loading = true;
   let dormArr = [];

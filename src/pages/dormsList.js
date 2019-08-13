@@ -15,6 +15,7 @@ const firebase = getInstance();
 const dormsListTemplate = require('../templates/dormsList.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   let loading = true;
   let posts = [];

@@ -13,6 +13,7 @@ import {
 const homeTemplate = require('../templates/home.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   const user = 'Test user';
   // Return the compiled template to the router

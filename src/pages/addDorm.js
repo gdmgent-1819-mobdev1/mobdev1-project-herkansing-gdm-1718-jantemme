@@ -12,12 +12,13 @@ import {
 const addDormTemplate = require('../templates/addDorm.handlebars');
 
 export default () => {
-  let user = JSON.parse(localStorage.getItem('User'));
+  let user = JSON.parse(localStorage.getItem('User'))
+  let dorm = JSON.parse(localStorage.getItem('dorm'))
   // Data to be passed to the template
   // Return the compiled template to the router
   if(user && user.status == "Loaner")
     {
-      update(compile(addDormTemplate)());
+      update(compile(addDormTemplate)({dorm}));
       addGenerallisteners();
       addAddDormListeners();
     } else {

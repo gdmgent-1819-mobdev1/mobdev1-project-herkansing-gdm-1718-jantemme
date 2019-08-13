@@ -16,6 +16,7 @@ const firebase = getInstance();
 const profileTemplate = require('../templates/profile.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   let loading = true;
   let posts = {};

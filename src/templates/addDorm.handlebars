@@ -1,17 +1,17 @@
 {{> header }}
 <div class="body" >
     <div class="page">
-        <form action="" class="sign">
+        <div  class="sign">
             <h1>Add your dorm</h1>
             <div class="form_container"> 
                 <div class="field_container">
                     <label for="dorm_price">Price per month</label>
-                    <input id="dorm_price" type="price" name="dorm_price"> 
+                    <input id="dorm_price" type="price" name="dorm_price" value={{dorm.price}}> 
                 </div>
 
                 <div class="field_container">
                     <label for="dorm_pledge">Pledge</label>
-                    <input id="dorm_pledge" type="price" name="dorm_pledge"> 
+                    <input id="dorm_pledge" type="price" name="dorm_pledge" value={{dorm.pledge}}> 
                 </div>
 
                 <label for="dorm_type">Type</label>
@@ -24,17 +24,17 @@
 
                 <div class="field_container">
                     <label for="dorm_surface">Surface (square meters)</label>
-                    <input id="dorm_surface" type="number" name="dorm_surface">
+                    <input id="dorm_surface" type="number" name="dorm_surface" value={{dorm.surface}}>
                 </div>
 
                 <div class="field_container">
                     <label for="dorm_floor">Floor</label>
-                    <input id="dorm_floor" type="number" name="dorm_floor">
+                    <input id="dorm_floor" type="number" name="dorm_floor" value={{dorm.floor}}>
                 </div>
 
                 <div class="field_container">
                     <label for="dorm_people">Amount of people</label>
-                    <input id="dorm_people" type="number" name="dorm_people">
+                    <input id="dorm_people" type="number" name="dorm_people" value={{dorm.peoplePerDorm}}>
                 </div>
 
                 <label for="dorm_toilet">Toilet</label>
@@ -82,34 +82,34 @@
                     <label for="dorm_furniture">Yes</label>
                     <input id="dorm_furniture_yes" type="radio" name="dorm_furniture" value="yes"> 
                     <label id="dorm_furniture_discription_label" for="dorm_furniture_discription">Discription</label>
-                    <input id="dorm_furniture_discription" type="text" name="dorm_furniture_discription" class="textbox"> 
+                    <input id="dorm_furniture_discription" type="text" name="dorm_furniture_discription" class="textbox" value={{dorm.furniture_discription}}> 
                     <label for="dorm_furniture">No</label>
                     <input id="dorm_furniture_no" type="radio" name="dorm_furniture" value="no"> 
                 </div>
 
                 <div class="field_container">
                     <label for="dorm_image">Pictures</label>
-                    <input id="dorm_image" type="file" name="dorm_image">
+                    <input id="dorm_image" type="file" name="dorm_image" value={{dorm.image}}>
                 </div>
 
                 <label for="dorm_adress">Adress</label>
                 <div class="sub-form">
                     <label for="dorm_adress">Street and housenumber</label>
-                    <input id="dorm_streetAndNumber"  type="text" name="dorm_adress"> 
+                    <input id="dorm_streetAndNumber"  type="text" name="dorm_adress" value={{dorm.streetAndNumber}}> 
                     <label for="dorm_place">Place</label>
-                    <input id="dorm_place" type="text" name="dorm_place"> 
+                    <input id="dorm_place" type="text" name="dorm_place" value={{dorm.place}}> 
                     <label for="dorm_postal">Postal code</label>
-                    <input id="dorm_postal" type="text" pattern="[0-9]{4}" name="dorm_postal"> 
+                    <input id="dorm_postal" type="text" pattern="[0-9]{4}" name="dorm_postal" value={{dorm.postal}}> 
                 </div>
 
                 <div class="field_container">
                     <label for="dorm_dormAmount">Amount of dorms in the building</label>
-                    <input id="dorm_dormAmount" type="number" name="dorm_dormAmount">
+                    <input id="dorm_dormAmount" type="number" name="dorm_dormAmount" value={{dorm.dormAmount}}>
                 </div>
 
                 <button id="button_add_dorm">Add dorm</button>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 {{> footer }}

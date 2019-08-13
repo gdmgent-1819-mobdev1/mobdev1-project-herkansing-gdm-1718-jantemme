@@ -30,6 +30,7 @@ import update from '../helpers/update';
 const mapTemplate = require('../templates/page-with-map.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   // Data to be passed to the template
   const title = 'Map';
   update(compile(mapTemplate)({

@@ -12,6 +12,7 @@ import {
 const loginTemplate = require('../templates/login.handlebars');
 
 export default () => {
+  localStorage.removeItem("dorm")
   update(compile(loginTemplate)());
   addGenerallisteners();
   addLoginListeners();

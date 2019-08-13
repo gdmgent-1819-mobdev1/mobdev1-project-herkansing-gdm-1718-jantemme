@@ -138,15 +138,11 @@ const showUserInfo = (user) => {
 }
 
 const storeUser = (user) => {
-  console.log("in function")
   let blogpostRef = firebase.database().ref('users/');
   let userObject;
   blogpostRef.on('value', function (snapshot) {
     snapshot.forEach(function (data) {
-      console.log(user.email)
-      console.log(data.val().email)
       if (user.email == data.val().email) {
-        console.log("in it")
         switch (data.val().status) {
           case 'Student':
             userObject = new Student(data.val().user_id, data.val().name, data.val().surname, data.val().email, data.val().adress, data.val().tel, data.val().school, data.val().place, data.val().status);
@@ -211,12 +207,39 @@ const addDorm = () => {
   const postal = document.getElementById("dorm_postal").value;
   const dormAmount = document.getElementById("dorm_dormAmount").value;
   const user = JSON.parse(localStorage.getItem('User'))['userId'];
+  const dorm = JSON.parse(localStorage.getItem('dorm'))
 
   if (price != '' && pledge != '' && type != '' && surface != '' && floor != '' && peoplePerDorm != '' && toilet_status != '' && shower_status != '' && 
   bath_status != '' && kitchen_status != '' && furniture != '' && streetAndNumber != '' && place != '' && postal != '' && dormAmount != '') {
-    const databaseRef = firebase.database().ref('dorms/').push();
-    databaseRef.set({
-        dorm_id: databaseRef.key,
+    if(!dorm) {
+      const databaseRef = firebase.database().ref('dorms/').push();
+      databaseRef.set({
+          dorm_id: databaseRef.key,
+          price: price, 
+          pledge: pledge, 
+          type: type, 
+          surface: surface, 
+          floor: floor, 
+          peoplePerDorm: peoplePerDorm, 
+          toilet_status: toilet_status, 
+          shower_status: shower_status, 
+          bath_status: bath_status, 
+          kitchen_status: kitchen_status, 
+          furniture: furniture, 
+          furniture_discription: furniture_discription,
+          image: image,
+          streetAndNumber: streetAndNumber, 
+          place: place, 
+          postal: postal, 
+          dormAmount: dormAmount,
+          user: user
+        });
+
+      sendNotification("Dorm was added!");
+      localStorage.removeItem('imageLink');
+    } else {
+      let databaseRef = {
+        dorm_id: dorm.dorm_id,
         price: price, 
         pledge: pledge, 
         type: type, 
@@ -235,10 +258,11 @@ const addDorm = () => {
         postal: postal, 
         dormAmount: dormAmount,
         user: user
-      });
-
-    sendNotification("Dorm was added!");
-    localStorage.removeItem('imageLink');
+      }
+      firebase.database().ref('dorms/' + dorm.dorm_id).update(databaseRef)
+      sendNotification("Dorm was editted!");
+      localStorage.removeItem('imageLink');
+    }
   }
   else
     sendNotification("Information not complete!");
