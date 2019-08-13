@@ -22,8 +22,12 @@ export default () => {
   let loading = true;
   let dorm = {};
   let coordinates;
+  let owner = false
+  let student = false
+  let user = JSON.parse(localStorage.getItem('User'))
   // Return the compiled template to the router
-  update(compile(dormDetailTemplate)({ loading, dorm }));
+
+  update(compile(dormDetailTemplate)({ loading, dorm, owner, student }));
 
   const dorm_id = localStorage.getItem('dorm_id');
 
@@ -33,6 +37,11 @@ export default () => {
       if (dorm_id == data.val().dorm_id) {
         dorm = data.val();
         loading = false;
+        if(user.userId == dorm.user) {
+          owner = true
+        } else if(user.status == "Student") {
+          student = true
+        }
       }
     });
     fetch(`http://api.mapbox.com/geocoding/v5/mapbox.places/${dorm.streetAndNumber} ${dorm.place}.json?access_token=${config.mapBoxToken}.json`)
@@ -44,14 +53,26 @@ export default () => {
       drawMap(coordinates)
     });
     // Run the update helper to update the template
-    update(compile(dormDetailTemplate)({ loading, dorm }));
+    update(compile(dormDetailTemplate)({ loading, dorm, owner, student }))
 
-    document.getElementById("button_message").addEventListener("click", function() {
-      if(localStorage.getItem("User"))
-        window.location.assign("#/chat");
-      else
-        window.location.assign("#/login");
-    });
+    if(document.getElementById("button_message")) {
+      document.getElementById("button_message").addEventListener("click", function() {
+        if(localStorage.getItem("User"))
+          window.location.assign("#/chat");
+        else
+          window.location.assign("#/login");
+      })
+    }
+
+    if(document.getElementById("button_remove_dorm")) {
+      document.getElementById("button_remove_dorm").addEventListener("click", function() {
+        firebase.database().ref('/dorms/' + dorm.dorm_id).remove()
+        .then(() => {
+          sendNotification("Dorm deleted successfully!")
+          window.location.assign('/#/profile')
+        })
+      })
+    }
 
     var fbButton = document.getElementById('fb-share-button');
     var url = "google.com";

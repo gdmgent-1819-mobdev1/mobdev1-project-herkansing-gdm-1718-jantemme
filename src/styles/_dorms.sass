@@ -16,6 +16,9 @@
     padding: 20px
     width: 80%
 
+#button_remove_dorm
+    background-color: $color-red
+
 
 #fb-share-button
     background: #3b5998
@@ -24,7 +27,8 @@
     border-radius: 3px
     font-weight: 600
     padding: 5px 8px
-    display: inline-block
+    display: flex
+    flex-direction: row
     position: static
 
 
@@ -48,8 +52,6 @@
 
     
 .dorms
-    height: 100%
-
     .dorm_footer
         display: flex
         justify-content: space-between
@@ -85,6 +87,11 @@
         border: none
         background-color: $color-mint
         cursor: pointer
+    
+    .actions_container
+        display: flex
+        flex-direction: column
+
 
     .container
         display: flex
@@ -92,7 +99,6 @@
         flex-wrap: wrap
         justify-content: center
         width: 100%
-        height: 100%
         padding-bottom: 50px
 
         .detail_dorm

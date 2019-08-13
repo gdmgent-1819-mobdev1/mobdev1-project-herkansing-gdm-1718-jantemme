@@ -1,0 +1,58 @@
+{{> header }}
+<div class="page">
+  <h1 class="title">{{title}}</h1>
+  <div class="wrapper">
+    <div class="profile_container accountDetails">
+      <h2>ACCOUNT DETAILS</h2>
+      <h3>Name</h3>
+      <p>{{user.name}}</p>
+      <h3>Surname</h3>
+      <p>{{user.surname}}</p>
+      <h3>Email</h3>
+      <p>{{user.email}}</p>
+      <h3>Status</h3>
+      <p>{{user.status}}</p>
+      <button id="btn-logout" class="logout">Log out</button>
+    </div>
+    <div class="profile_container conversations" >
+      <h2>CONVERSATIONS</h2>
+    </div>
+    {{#if loaner}}
+      <div class="profile_container dorms" >
+        <h2>YOUR DORMS</h2>
+        {{#if loading}}
+          Loading data, please wait...
+        {{else}}
+          {{#each posts}}
+            <div id="{{this.dorm_id}}" class="profile_dorm">
+              <p>{{this.type}}</p>
+              <p>{{this.place}}</p>
+              <p>{{this.postal}}</p>
+              <p>{{this.streetAndNumber}}</p>
+              <p>€{{this.price}}</p>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+    {{/if}}
+    {{#if student}}
+      <div class="profile_container dorms" >
+        <h2>YOUR FAVORITES</h2>
+        {{#if loading}}
+          Loading data, please wait...
+        {{else}}
+          {{#each likes}}
+            <div id="{{this.dorm_id}}" class="profile_dorm">
+              <p>{{this.type}}</p>
+              <p>{{this.place}}</p>
+              <p>{{this.postal}}</p>
+              <p>{{this.streetAndNumber}}</p>
+              <p>€{{this.price}}</p>
+            </div>
+          {{/each}}
+        {{/if}}
+      </div>
+    {{/if}}
+  </div>
+</div>
+{{> footer }}

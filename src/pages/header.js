@@ -1,14 +1,9 @@
+/* eslint-disable */
 import {
   compile,
 } from 'handlebars';
 import update from '../helpers/update';
 import {
-  logout,
-  sendEmailVerification,
-  sendNotification,
-  requestNotificationPermission,
-  toggleMobileMenu,
-  hideMobileMenu,
   addGenerallisteners,
 } from '../helpers/globalListeners.js';
 

@@ -10,6 +10,7 @@ import LoginView from './pages/login';
 import addDormView from './pages/addDorm';
 import dormDetailView from './pages/dormDetail';
 import LikesView from './pages/likes';
+import ProfileView from './pages/profile';
 
 export default [
   { path: '/', view: HomeView },
@@ -23,4 +24,5 @@ export default [
   { path: '/header', view: HeaderView },
   { path: '/signUp', view: SignUpView },
   { path: '/login', view: LoginView },
+  { path: '/profile', view: ProfileView },
 ];

@@ -4,17 +4,6 @@ import { compile } from 'handlebars';
 import update from '../helpers/update';
 import { userInfo } from 'os';
 import {
-  logout,
-  addDorm,
-  getImage,
-  sendNotification,
-  requestNotificationPermission,
-  checkForUser,
-  toggleMobileMenu,
-  toggleFurnitureDiscription,
-  hideMobileMenu,
-  showLogout,
-  hideLogout,
   addGenerallisteners,
   addAddDormListeners
   } from '../helpers/globalListeners.js';
@@ -23,9 +12,15 @@ import {
 const addDormTemplate = require('../templates/addDorm.handlebars');
 
 export default () => {
+  let user = JSON.parse(localStorage.getItem('User'));
   // Data to be passed to the template
   // Return the compiled template to the router
-  update(compile(addDormTemplate)());
-  addGenerallisteners();
-  addAddDormListeners();
+  if(user && user.status == "Loaner")
+    {
+      update(compile(addDormTemplate)());
+      addGenerallisteners();
+      addAddDormListeners();
+    } else {
+      window.location.assign("/#/login")
+    }
 };

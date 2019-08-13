@@ -1,12 +1,11 @@
 /* eslint-disable */
 import {
   Student,
-  Kotbaas
-} from '../helpers/classes';
+  Kotbaas,
+} from './classes';
 
-var userObject;
 const {
-  getInstance
+  getInstance,
 } = require('../firebase/firebase');
 
 const firebase = getInstance();
@@ -25,31 +24,32 @@ const signup = (e) => {
   const adress = document.getElementById('signup_adress').value;
   const place = document.getElementById('signup_place').value;
   const school = document.getElementById('signup_school').value;
-  var status = null;
+  let status = null;
 
-  if (document.getElementById('signup_radio_student').checked)
+  if (document.getElementById('signup_radio_student').checked) {
     status = 'Student';
-  else if (document.getElementById('signup_radio_loaner').checked)
+  } else if (document.getElementById('signup_radio_loaner').checked) {
     status = 'Loaner';
+  }
 
-  if (email != '' && password != '' && name != '' && surname != '' && adress != '' && place != '' && status != null) {
-    const writeUserData = (email, name, surname, tel, adress, place, school, status) => {
+  if (email !== '' && password !== '' && name !== '' && surname !== '' && adress !== '' && place !== '' && status != null) {
+    const writeUserData = (userEmail, userName, userSurname, userTel, userAdress, userPlace, userSchool, userStatus) => {
       const databaseRef = firebase.database().ref('users/').push();
       databaseRef.set({
         user_id: databaseRef.key,
-        name: name,
-        surname: surname,
-        email: email,
-        tel: tel,
-        adress: adress,
-        place: place,
-        school: school,
-        status: status
+        name: userName,
+        surname: userSurname,
+        email: userEmail,
+        tel: userTel,
+        adress: userAdress,
+        place: userPlace,
+        school: userSchool,
+        status: userStatus,
       });
     }
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(function (response) {
+      .then(function createUser(response) {
 
         writeUserData(email, name, surname, tel, adress, place, school, status);
 
@@ -113,15 +113,15 @@ const login = (e) => {
 const loginHandler = (email, password, notification) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function (response) {
-      sendNotification(notification);
       storeUser(response.user);
+      sendNotification(notification);
       setTimeout(function () {
         //showUserInfo(userObject);
         checkForUser();
       }, 500);
       setTimeout(function () {
         window.location.assign("/");
-      }, 1000);
+      }, 2000); // tried to swap these timeouts for a promise but couldn't get it to work, not going to waste more time on it
     })
     .catch(function (error) {
       // Handle Errors here.
@@ -138,10 +138,15 @@ const showUserInfo = (user) => {
 }
 
 const storeUser = (user) => {
+  console.log("in function")
   let blogpostRef = firebase.database().ref('users/');
+  let userObject;
   blogpostRef.on('value', function (snapshot) {
     snapshot.forEach(function (data) {
+      console.log(user.email)
+      console.log(data.val().email)
       if (user.email == data.val().email) {
+        console.log("in it")
         switch (data.val().status) {
           case 'Student':
             userObject = new Student(data.val().user_id, data.val().name, data.val().surname, data.val().email, data.val().adress, data.val().tel, data.val().school, data.val().place, data.val().status);
@@ -175,13 +180,13 @@ const logout = () => {
   firebase.auth().signOut()
     .then(function () {
       window.localStorage.removeItem('User');
-      hideLogout();
+      hideProfile();
       hideMobileMenu();
       document.getElementById('btn-login').style.display = 'inline-block';
       document.getElementById('btn-signup').style.display = 'inline-block';
       document.getElementById('btn-login-2').style.display = 'inline-block';
       document.getElementById('btn-signup-2').style.display = 'inline-block';
-      window.location.reload();
+      window.location.assign("/");
     }).catch(function (error) {});
 }
 
@@ -316,7 +321,7 @@ const getFurnitureStatus = () => {
 const checkForUser = () => {
   if(localStorage.getItem('User'))
   {
-    showLogout();
+    showProfile();
   }
 }
 
@@ -338,18 +343,18 @@ const showSchoolField = () => {
   document.getElementById('signup_school').style.display = 'inline-block';
 }
 
-const showLogout = () => {
+const showProfile = () => {
   document.getElementById('btn-login').style.display = 'none';
   document.getElementById('btn-signup').style.display = 'none';
   document.getElementById('btn-login-2').style.display = 'none';
   document.getElementById('btn-signup-2').style.display = 'none';
-  document.getElementById('btn-logout').style.display = 'inline-block';
-  document.getElementById('btn-logout-2').style.display = 'inline-block';
+  document.getElementById('btn-profile').style.display = 'inline-block';
+  document.getElementById('btn-profile-2').style.display = 'inline-block';
 }
 
-const hideLogout = () => {
-  document.getElementById('btn-logout').style.display = 'none';
-  document.getElementById('btn-logout-2').style.display = 'none';
+const hideProfile = () => {
+  document.getElementById('btn-profile').style.display = 'none';
+  document.getElementById('btn-profile-2').style.display = 'none';
 }
 
 const toggleFurnitureDiscription = () => {
@@ -383,10 +388,6 @@ const addGenerallisteners = () => {
   document.getElementsByClassName('btn-dorms')[1].addEventListener('click', removeSearchQuery);
 
   checkForUser();
-
-  document.getElementById('btn-logout-2').addEventListener('click', logout);
-  document.getElementById('btn-logout').addEventListener('click', logout);
-
 }
 
 const addSignUpListeners = () => {
