@@ -16,6 +16,15 @@
     </div>
     <div class="profile_container conversations" >
       <h2>CONVERSATIONS</h2>
+      {{#if loading}}
+          Loading data, please wait...
+        {{else}}
+          {{#each convos}}
+            <div id="{{@key}}" class="profile_convo">
+              <p>{{@key}}</p>
+            </div>
+          {{/each}}
+        {{/if}}
     </div>
     {{#if loaner}}
       <div class="profile_container dorms" >

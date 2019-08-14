@@ -39,7 +39,7 @@ export default () => {
         dorm = data.val();
         loading = false;
         if(user) {
-          if(user.userId == dorm.user) {
+          if(user.user_id == dorm.user) {
             owner = true
           } else if(user.status == "Student") {
             student = true

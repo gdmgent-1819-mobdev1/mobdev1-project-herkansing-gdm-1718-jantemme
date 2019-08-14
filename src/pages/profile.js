@@ -42,33 +42,47 @@ export default () => {
     loading = false;
 
     // Convert snapshot to array
-  let returnArr = []
-  snapshot.forEach(function(childSnapshot) {
-    var item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    if(item.user == user.userId) {
-      returnArr.push(item)
-    }
-  })
+    let returnArr = []
+    snapshot.forEach(function(childSnapshot) {
+      var item = childSnapshot.val();
+      item.key = childSnapshot.key;
+      if(item.user == user.user_id) {
+        returnArr.push(item)
+      }
+    })
 
     posts = returnArr
-    // Run the update helper to update the template
-    update(compile(profileTemplate)({ title, loading, user, posts, loaner, student, likes }));
 
-    const dorms = document.querySelectorAll("div.profile_dorm");
-    for (var i = 0; i < dorms.length; i++) {
-        dorms[i].addEventListener('click',redirect,false);
-    }
-    function redirect(e){
-      const dorm_id = e.currentTarget.getAttribute('id');
-      console.log(dorm_id);
-      localStorage.setItem('dorm_id', dorm_id);
-      window.location.assign('#/dormDetail')
-    }
+    readDb()
+    .then((convos) => {
+      console.log(convos)
+      update(compile(profileTemplate)({ title, loading, user, posts, loaner, student, likes, convos }));
 
-    document.getElementById('btn-logout').addEventListener('click', logout);
+      const dorms = document.querySelectorAll("div.profile_dorm");
+      for (var i = 0; i < dorms.length; i++) {
+          dorms[i].addEventListener('click',redirect,false);
+      }
+      function redirect(e){
+        const dorm_id = e.currentTarget.getAttribute('id');
+        console.log(dorm_id);
+        localStorage.setItem('dorm_id', dorm_id);
+        window.location.assign('#/dormDetail')
+      }
 
-    addGenerallisteners();
+      document.getElementById('btn-logout').addEventListener('click', logout);
+
+      addGenerallisteners();
+    })
   });
 
+}
+
+const readDb = () => {
+  let user = JSON.parse(localStorage.getItem('User'))
+  return new Promise((resolve, reject) => {
+    const database = firebase.database().ref('users/' + user.user_id+ '/convos/');
+    database.on('value', (snapshot) => {
+      resolve(snapshot.val())
+    })
+  });
 }

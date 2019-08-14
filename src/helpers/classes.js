@@ -14,7 +14,7 @@ class Student {
 
 class Kotbaas {
   constructor(userId, name, surname, email, adress, tel, place, status) {
-    this.userId = userId;
+    this.user_id = userId;
     this.name = name;
     this.surname = surname;
     this.email = email;
