@@ -58,19 +58,6 @@ export default () => {
     // Run the update helper to update the template
     update(compile(dormsListTemplate)({ title, loading, posts, studentOrGuest }));
 
-    const btn = document.getElementById("button_filter");
-    const modal = document.getElementById("modal_filter");    
-  
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    
-    window.onclick = function(event) {
-      if (event.target != modal) {
-        modal.style.display = "none";
-      }
-    }
-
     const dorms = document.querySelectorAll("div.dorm");
     for (var i = 0; i < dorms.length; i++) {
         dorms[i].addEventListener('click',redirect,false);

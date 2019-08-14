@@ -5,7 +5,7 @@ import { compile } from 'handlebars';
 // Import the update helper
 import update from '../helpers/update';
 import {
-  getUser,
+  sendNotification,
   logout,
   addGenerallisteners,
 } from '../helpers/globalListeners';
@@ -27,7 +27,6 @@ export default () => {
   let loaner = false
   let student = false
   let likes = JSON.parse(localStorage.getItem('likes'))
-  let persons = []
 
   if(user.status == "Loaner") {
     loaner = true
@@ -82,6 +81,8 @@ export default () => {
           window.location.assign('#/chat')
         }
 
+        document.getElementById("btn-removeAccount").addEventListener("click", deleteAccount)
+
         document.getElementById('btn-logout').addEventListener('click', logout);
 
         addGenerallisteners();
@@ -108,8 +109,24 @@ const getUsers = () => {
     database.on('value', (snapshot) => {
       snapshot.forEach(function (data) {
           users.push(data.val())
-        })
-        resolve(users)
-      });
-    })
+      })
+      resolve(users)
+    });
+  })
+}
+
+const deleteAccount = () => {
+  let user = JSON.parse(localStorage.getItem('User'))
+  firebase.database().ref('/users/' + user.user_id).remove()
+  .then(() => {
+    var user = firebase.auth().currentUser;
+
+    user.delete().then(function() {
+      sendNotification("Account deleted successfully!")
+      logout()
+      window.location.assign('/')
+    }).catch(function(error) {
+      sendNotification("Could not delete.")
+    });
+  })
 }
