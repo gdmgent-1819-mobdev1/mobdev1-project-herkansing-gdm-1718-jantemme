@@ -47,33 +47,38 @@ const sendMessage = () => {
   let user = JSON.parse(localStorage.getItem('User'))
   let message = document.getElementById("input-message").value
   let owner_id = localStorage.getItem("owner_id")
-
-  if(message != "") {
-    const senderRef = firebase.database().ref('users/' + user.user_id + '/convos/' + owner_id).push();
-    senderRef.set({
-      message_id: senderRef.key,
-      status: "sent",
-      content: message,
-    });
-
-    const recieverRef = firebase.database().ref('users/' + owner_id + '/convos/' + user.user_id).push();
-    recieverRef.set({
-      message_id: recieverRef.key,
-      status: "recieved",
-      content: message,
-    });
-
-    readDb()
-    .then((messages) => {
-      getUser(owner_id)
-      .then((person) => {
-        message = messages
-        update(compile(chatTemplate)({ person, message }));
-        document.getElementById("button-send").addEventListener("click", sendMessage)
-        addGenerallisteners();
+  let owner = ""
+  getUser(owner_id)
+  .then((person) => {
+    owner = person
+    if(message != "") {
+      const senderRef = firebase.database().ref('users/' + user.user_id + '/convos/' + owner_id).push();
+      senderRef.set({
+        message_id: senderRef.key,
+        status: "sent",
+        content: message,
+        sender: user.name + " " + user.surname,
+        reciever: owner.name + " " + owner.surname,
+      });
+  
+      const recieverRef = firebase.database().ref('users/' + owner_id + '/convos/' + user.user_id).push();
+      recieverRef.set({
+        message_id: recieverRef.key,
+        status: "recieved",
+        content: message,
+      });
+  
+      readDb()
+      .then((message) => {
+        getUser(owner_id)
+        .then((person) => {
+          update(compile(chatTemplate)({ person, message }));
+          document.getElementById("button-send").addEventListener("click", sendMessage)
+          addGenerallisteners();
+        })
       })
-    })
-  }
+    }
+  })
 }
 
 const readDb = () => {

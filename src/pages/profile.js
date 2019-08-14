@@ -5,6 +5,7 @@ import { compile } from 'handlebars';
 // Import the update helper
 import update from '../helpers/update';
 import {
+  getUser,
   logout,
   addGenerallisteners,
 } from '../helpers/globalListeners';
@@ -26,6 +27,7 @@ export default () => {
   let loaner = false
   let student = false
   let likes = JSON.parse(localStorage.getItem('likes'))
+  let persons = []
 
   if(user.status == "Loaner") {
     loaner = true
@@ -56,22 +58,34 @@ export default () => {
     readDb()
     .then((convos) => {
       console.log(convos)
-      update(compile(profileTemplate)({ title, loading, user, posts, loaner, student, likes, convos }));
+      getUsers()
+      .then((users) => {
+        update(compile(profileTemplate)({ title, loading, user, posts, loaner, student, likes, convos, users }));
 
-      const dorms = document.querySelectorAll("div.profile_dorm");
-      for (var i = 0; i < dorms.length; i++) {
-          dorms[i].addEventListener('click',redirect,false);
-      }
-      function redirect(e){
-        const dorm_id = e.currentTarget.getAttribute('id');
-        console.log(dorm_id);
-        localStorage.setItem('dorm_id', dorm_id);
-        window.location.assign('#/dormDetail')
-      }
+        const dorms = document.querySelectorAll("div.profile_dorm");
+        for (var i = 0; i < dorms.length; i++) {
+            dorms[i].addEventListener('click',redirectToDorm,false);
+        }
+        function redirectToDorm(e){
+          const dorm_id = e.currentTarget.getAttribute('id');
+          localStorage.setItem('dorm_id', dorm_id);
+          window.location.assign('#/dormDetail')
+        }
 
-      document.getElementById('btn-logout').addEventListener('click', logout);
+        const convosElements = document.querySelectorAll("div.profile_convo");
+        for (var i = 0; i < convosElements.length; i++) {
+          convosElements[i].addEventListener('click',redirectToConvo,false);
+        }
+        function redirectToConvo(e){
+          const owner_id = e.currentTarget.getAttribute('id');
+          localStorage.setItem('owner_id', owner_id);
+          window.location.assign('#/chat')
+        }
 
-      addGenerallisteners();
+        document.getElementById('btn-logout').addEventListener('click', logout);
+
+        addGenerallisteners();
+      })
     })
   });
 
@@ -85,4 +99,17 @@ const readDb = () => {
       resolve(snapshot.val())
     })
   });
+}
+
+const getUsers = () => {
+  let users = []
+  return new Promise((resolve, reject) => {
+    const database = firebase.database().ref('users/');
+    database.on('value', (snapshot) => {
+      snapshot.forEach(function (data) {
+          users.push(data.val())
+        })
+        resolve(users)
+      });
+    })
 }
