@@ -97,6 +97,7 @@ export default () => {
     });
 
     checkIfFavorite(dorm, false)
+    getOwner(dorm)
     addGenerallisteners()
   });
 
@@ -159,4 +160,15 @@ const removeFromFavorites = (favoriteIndex) => {
   let favorites = JSON.parse(localStorage.getItem("likes"))
   favorites.splice(favoriteIndex, 1)
   localStorage.setItem("likes", JSON.stringify(favorites))
+}
+
+const getOwner = (dorm) => {
+  const database = firebase.database().ref('/users');
+  database.on('value', (snapshot) => {
+    snapshot.forEach(function (data) {
+      if (dorm.user == data.val().user_id) {
+        localStorage.setItem("owner_id", (data.val().user_id))
+      }
+    })
+  })
 }

@@ -20,12 +20,18 @@ export default () => {
   let loading = true;
   let posts = [];
   const title = 'Dorms';
+  let studentOrGuest
 
   let user = JSON.parse(localStorage.getItem('User'));
 
+  if(user && user.status == "Loaner") {
+    studentOrGuest = false
+  } else if(!user || user.status == "Student") {
+    studentOrGuest = true
+  }
 
   // Return the compiled template to the router
-  update(compile(dormsListTemplate)({ title, loading, posts }));
+  update(compile(dormsListTemplate)({ title, loading, posts, studentOrGuest }));
   addGenerallisteners();
 
   const database = firebase.database().ref('/dorms');
@@ -50,7 +56,7 @@ export default () => {
 
     posts = returnArr
     // Run the update helper to update the template
-    update(compile(dormsListTemplate)({ title, loading, posts }));
+    update(compile(dormsListTemplate)({ title, loading, posts, studentOrGuest }));
 
     const btn = document.getElementById("button_filter");
     const modal = document.getElementById("modal_filter");    

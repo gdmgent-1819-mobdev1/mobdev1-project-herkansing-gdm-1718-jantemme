@@ -1,0 +1,18 @@
+{{> header }}
+<div class="page">
+  <div class="chat">
+    <h2>{{person.name}} {{person.surname}}</h2>
+    <div class="chatArea">
+      {{#each message}}
+        <div class="textBalloon {{this.status}}">
+          <p>{{this.content}}</p>
+        </div>
+      {{/each}}
+    </div>
+    <div class="actionBar">
+      <input id="input-message" type="text">
+      <button id="button-send">Send</button>
+    </div>
+  </div>
+</div>
+{{> footer }}

@@ -11,6 +11,7 @@ import addDormView from './pages/addDorm';
 import dormDetailView from './pages/dormDetail';
 import LikesView from './pages/likes';
 import ProfileView from './pages/profile';
+import ChatView from './pages/chat';
 
 export default [
   { path: '/', view: HomeView },
@@ -25,4 +26,5 @@ export default [
   { path: '/signUp', view: SignUpView },
   { path: '/login', view: LoginView },
   { path: '/profile', view: ProfileView },
+  { path: '/chat', view: ChatView },
 ];

@@ -15,7 +15,11 @@
         <a href="#/addDorm" id="button-AddDorm"><button>Add your dorm</button></a>
       </div>
       <div class="dorms_header">
-        <div class="view"><a href="#/dormsList">List</a> | <a href="#/dormsTinder">Tinder</a></div>
+        {{#if studentOrGuest}}
+          <div class="view">
+            <a href="#/dormsList">List</a> | <a href="#/dormsTinder">Tinder</a>
+          </div>
+        {{/if}}
         <p id="button_filter">Filter</p>
       </div>
     </div>

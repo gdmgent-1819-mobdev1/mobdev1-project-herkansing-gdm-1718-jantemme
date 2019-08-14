@@ -113,15 +113,12 @@ const login = (e) => {
 const loginHandler = (email, password, notification) => {
   firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function (response) {
-      storeUser(response.user);
-      sendNotification(notification);
-      setTimeout(function () {
-        //showUserInfo(userObject);
+      storeUser(response.user)
+      .then(() => {
+        sendNotification(notification);
         checkForUser();
-      }, 500);
-      setTimeout(function () {
         window.location.assign("/");
-      }, 2000); // tried to swap these timeouts for a promise but couldn't get it to work, not going to waste more time on it
+      })
     })
     .catch(function (error) {
       // Handle Errors here.
@@ -140,34 +137,38 @@ const showUserInfo = (user) => {
 const storeUser = (user) => {
   let blogpostRef = firebase.database().ref('users/');
   let userObject;
-  blogpostRef.on('value', function (snapshot) {
-    snapshot.forEach(function (data) {
-      if (user.email == data.val().email) {
-        switch (data.val().status) {
-          case 'Student':
-            userObject = new Student(data.val().user_id, data.val().name, data.val().surname, data.val().email, data.val().adress, data.val().tel, data.val().school, data.val().place, data.val().status);
-            console.log(userObject);
-            break;
-          case 'Loaner':
-            userObject = new Kotbaas(data.val().user_id, data.val().name, data.val().surname, data.val().email, data.val().adress, data.val().tel, data.val().place, data.val().status);
-            console.log(userObject);
-            break;
+  return new Promise((resolve, reject) => {
+    blogpostRef.on('value', function (snapshot) {
+      snapshot.forEach(function (data) {
+        if (user.email == data.val().email) {
+          switch (data.val().status) {
+            case 'Student':
+              userObject = new Student(data.val().user_id, data.val().name, data.val().surname, data.val().email, data.val().adress, data.val().tel, data.val().school, data.val().place, data.val().status);
+              console.log(userObject);
+              break;
+            case 'Loaner':
+              userObject = new Kotbaas(data.val().user_id, data.val().name, data.val().surname, data.val().email, data.val().adress, data.val().tel, data.val().place, data.val().status);
+              console.log(userObject);
+              break;
+          }
+          resolve(window.localStorage.setItem('User', JSON.stringify(userObject)))
         }
-        window.localStorage.setItem('User', JSON.stringify(userObject));
-      }
+      });
     });
   });
 }
 
 const getUser = (userId) => {
-  let blogpostRef = firebase.database().ref('users/');
-  blogpostRef.on('value', function (snapshot) {
-    snapshot.forEach(function (data) {
-      if (userId == (data.val().user_id)) {
-        console.log( data.val().name + " gevonden!");
+  return new Promise((resolve, reject) => {
+    let blogpostRef = firebase.database().ref('users/');
+    blogpostRef.on('value', function (snapshot) {
+      snapshot.forEach(function (data) {
+        if (userId == (data.val().user_id)) {
+          resolve(data.val())
         }
       });
     });
+  })
 }
 
 
@@ -438,6 +439,7 @@ export {
   logout,
   addDorm,
   getImage,
+  getUser,
   sendEmailVerification,
   sendNotification,
   requestNotificationPermission,

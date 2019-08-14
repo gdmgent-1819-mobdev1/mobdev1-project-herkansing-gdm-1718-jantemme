@@ -1,0 +1,53 @@
+.chat
+    width: 60%
+    align-self: center
+    @media screen and (max-width: $break-large)
+        width: 100%
+
+.actionBar
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    align-self: center
+    bottom: 0
+    margin: 0
+    height: 40px
+    
+
+    input
+        width: 80%
+        margin: 0
+
+    button
+        width: 20%
+        background-color: $color-mint
+
+.textBalloon
+    height: 34
+    padding: 8px
+    border-radius: 17px
+    border: 0.1px solid grey
+    max-width: 70%
+    text-align: left
+    margin: 2px
+
+.textBalloon:last-child
+    margin-bottom: 10px
+
+.sent
+    align-self: flex-end
+    background-color: white
+
+.recieved
+    background-color: $color-mint
+    align-self: flex-start
+
+.chatArea
+    display: flex
+    flex-direction: column
+    height: 70vh
+    overflow: scroll
+
+    p
+        margin: 0
+        font-weight: 300
