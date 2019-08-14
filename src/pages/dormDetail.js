@@ -69,6 +69,7 @@ export default () => {
 
     if(document.getElementById("button_remove_dorm")) {
       document.getElementById("button_remove_dorm").addEventListener("click", function() {
+        checkIfFavorite(dorm, true)
         firebase.database().ref('/dorms/' + dorm.dorm_id).remove()
         .then(() => {
           sendNotification("Dorm deleted successfully!")
@@ -95,13 +96,13 @@ export default () => {
         return false;
     });
 
-    checkIfFavorite(dorm)
+    checkIfFavorite(dorm, false)
     addGenerallisteners()
   });
 
 }
 
-const checkIfFavorite = (dorm) => {
+const checkIfFavorite = (dorm, deleted) => {
   let favorites = JSON.parse(localStorage.getItem("likes"))
   let removeFromLikesButton = document.getElementById("button_remove_like")
   let isFavorite = false
@@ -115,14 +116,17 @@ const checkIfFavorite = (dorm) => {
     });
 
     if(isFavorite) {
-      removeFromLikesButton.style.display = "inline_block"
+      if(!deleted) {
+        removeFromLikesButton.style.display = "inline_block"
 
-      removeFromLikesButton.addEventListener("click", function(e) {
-        favorites.splice(favoriteIndex, 1)
-        localStorage.setItem("likes", JSON.stringify(favorites))
-        removeFromLikesButton.style.display = "none"
-        sendNotification("Deleted from favorites.")
-      });
+        removeFromLikesButton.addEventListener("click", function(e) {
+          removeFromFavorites(favoriteIndex)
+          removeFromLikesButton.style.display = "none"
+          sendNotification("Deleted from favorites.")
+        })
+      } else if(deleted) {
+        removeFromFavorites(favoriteIndex)
+      }
     } else {
       removeFromLikesButton.style.display = "none"
     }
@@ -149,4 +153,10 @@ const drawMap = (coordinates) => {
       console.error('Mapbox will crash the page if no access token is given.');
     }
   }
+}
+
+const removeFromFavorites = (favoriteIndex) => {
+  let favorites = JSON.parse(localStorage.getItem("likes"))
+  favorites.splice(favoriteIndex, 1)
+  localStorage.setItem("likes", JSON.stringify(favorites))
 }
